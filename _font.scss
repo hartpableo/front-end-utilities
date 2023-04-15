@@ -1,0 +1,35 @@
+// Text Transforms
+$transforms: uppercase, lowercase, capitalize, none;
+
+@each $tranform in $transforms {
+  .text-#{ $tranform } {
+    text-transform: #{$tranform};
+  }
+}
+
+@each $breakpoint, $value in $breakpoints {
+  @include media(#{$breakpoint}) {
+    @each $tranform in $transforms {
+      .text-#{ $breakpoint }-#{ $tranform } {
+        text-transform: #{$tranform};
+      }
+    }
+  }
+}
+
+// Font Weights
+@for $i from 1 through 9 {
+  .font-#{ $i * 100 } {
+    font-weight: #{$i * 100};
+  }
+}
+
+@each $breakpoint, $value in $breakpoints {
+  @include media(#{$breakpoint}) {
+    @for $i from 1 through 9 {
+      .font-#{ $breakpoint }-#{ $i * 100 } {
+        font-weight: #{$i * 100};
+      }
+    }
+  }
+}

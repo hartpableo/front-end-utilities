@@ -1,0 +1,195 @@
+$breakpoints: (
+"xs": 425px,
+"sm": 576px,
+"md": 768px,
+"lg": 992px,
+"xl": 1200px,
+"xxl": 1440px,
+"xxxl": 1920px,
+);
+
+$justify-or-align: (
+"start": flex-start,
+"center": center,
+"end": flex-end,
+"between": space-between,
+"evenly": space-evenly,
+"stretch": stretch,
+"around": space-around
+);
+
+$directions: (
+"row": row,
+"row-reverse": row-reverse,
+"column": column,
+"column-reverse": column-reverse,
+);
+
+$spacing-directions: (
+"mt": margin-top,
+"mr": margin-right,
+"mb": margin-bottom,
+"ml": margin-left,
+"my": '',
+"mx": '',
+"pt": padding-top,
+"pr": padding-right,
+"pb": padding-bottom,
+"pl": padding-left,
+"py": '',
+"px": '',
+);
+
+$spacing-values: (
+"0": 0,
+"5": 5px,
+"10": 10px,
+"15": 15px,
+"20": 20px,
+"25": 25px,
+"30": 30px,
+"40": 40px,
+"60": 60px,
+"80": 80px,
+"100": 100px,
+"120": 120px,
+"140": 140px
+);
+
+/*
+*******
+* BASE
+*******
+*/
+// Flex Direction
+@each $direction-name, $direction-value in $directions {
+  .flex-#{ $direction-name } {
+    flex-direction: #{$direction-value};
+  }
+}
+// Flex Justify and Align
+@each $justify-or-align-name, $justify-or-align-value in $justify-or-align {
+  .justify-content-#{ $justify-or-align-name } {
+    justify-content: #{$justify-or-align-value};
+  }
+  .align-items-#{ $justify-or-align-name } {
+    align-items: #{$justify-or-align-value};
+  }
+}
+// Flex Order
+@for $order-val from -5 through 5 {
+  .order-#{ $order-val } {
+    order: #{$order-val};
+  }
+}
+// Spacing
+@each $spacing-name, $spacing-val in $spacing-directions {
+  @each $tag, $val in $spacing-values {
+
+    @if $spacing-name == 'my' {
+      .#{ $spacing-name }-#{ $tag } {
+        margin-top: #{$val};
+        margin-bottom: #{$val};
+      }
+    }
+    
+    @else if $spacing-name == 'mx' {
+        .#{ $spacing-name }-#{ $tag } {
+            margin-right: #{$val};
+            margin-left: #{$val};
+          }
+    }
+    
+    @else if $spacing-name == 'py' {
+        .#{ $spacing-name }-#{ $tag } {
+            padding-top: #{$val};
+            padding-bottom: #{$val};
+          }
+    }
+    
+    @else if $spacing-name == 'px' {
+        .#{ $spacing-name }-#{ $tag } {
+            padding-right: #{$val};
+            padding-left: #{$val};
+          }
+    }
+    
+    @else {
+        .#{ $spacing-name }-#{ $tag } {
+          #{ $spacing-val }: #{$val};
+        }
+    }
+
+  }
+}
+
+/*
+****************
+* MEDIA QUERIES
+****************
+*/
+@each $bp, $value in $breakpoints {
+  @media all and (min-width: $value) {
+    // Responsive Flex Direction
+    @each $direction-name, $direction-value in $directions {
+      .flex-#{ $bp }-#{ $direction-name } {
+        flex-direction: #{$direction-value};
+      }
+    }
+    // Responsive Flex Justify and Align
+    @each $justify-or-align-name, $justify-or-align-value in $justify-or-align {
+      .justify-content-#{ $bp }-#{ $justify-or-align-name } {
+        justify-content: #{$justify-or-align-value};
+      }
+      .align-items-#{ $bp }-#{ $justify-or-align-name } {
+        align-items: #{$justify-or-align-value};
+      }
+    }
+    // Responsive Flex Order
+    @for $order-val from -5 through 5 {
+      .order-#{ $bp }-#{ $order-val } {
+        order: #{$order-val};
+      }
+    }
+    // Responsive Spacing
+    @each $spacing-name, $spacing-val in $spacing-directions {
+      @each $tag, $val in $spacing-values {
+
+          @if $spacing-name == 'my' {
+            .#{ $spacing-name }-#{ $bp }-#{ $tag } {
+              margin-top: #{ $val };
+              margin-bottom: #{ $val };
+            }
+          }
+          
+          @else if $spacing-name == 'mx' {
+              .#{ $spacing-name }-#{ $bp }-#{ $tag } {
+                  margin-right: #{ $val };
+                  margin-left: #{ $val };
+                }
+          }
+          
+          @else if $spacing-name == 'py' {
+              .#{ $spacing-name }-#{ $bp }-#{ $tag } {
+                  padding-top: #{ $val };
+                  padding-bottom: #{ $val };
+                }
+          }
+          
+          @else if $spacing-name == 'px' {
+              .#{ $spacing-name }-#{ $bp }-#{ $tag } {
+                  padding-right: #{ $val };
+                  padding-left: #{ $val };
+                }
+          }
+          
+          @else {
+              .#{ $spacing-name }-#{ $bp }-#{ $tag } {
+                #{ $spacing-val }: #{ $val };
+              }
+          }
+          
+        }
+    }
+  }
+}

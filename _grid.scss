@@ -1,0 +1,149 @@
+$patterns: cols-30-70, cols-70-30, cols-60-40, cols-40-60;
+
+$columns: 12;
+
+.container {
+  padding-left: 0.938rem;
+  padding-right: 0.938rem;
+  max-width: 78.125rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.row {
+  margin-left: -0.938rem;
+  margin-right: -0.938rem;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  > * {
+    padding-left: 0.938rem;
+    padding-right: 0.938rem;
+    position: relative;
+    > * {
+      height: 100%;
+    }
+  }
+  // Base
+  @for $i from 1 through $columns {
+    &.has-#{ $i }-cols {
+      > * {
+        flex: 0 0 calc(100% / #{$i});
+        max-width: calc(100% / #{$i});
+      }
+    }
+  }
+  // Responsive
+  @each $breakpoint, $value in $breakpoints {
+    @for $i from 1 through $columns {
+      @include media(#{$breakpoint}) {
+        &.#{ $breakpoint }-has-#{ $i }-cols {
+          > * {
+            flex: 0 0 calc(100% / #{$i});
+            max-width: calc(100% / #{$i});
+          }
+        }
+      }
+    }
+  }
+  // Patterns
+  @each $pattern in $patterns {
+    @if $pattern == cols-30-70 {
+      &.#{ $pattern } {
+        > *:nth-child(odd) {
+          flex: 0 0 30%;
+          max-width: 30%;
+        }
+        > *:nth-child(even) {
+          flex: 0 0 70%;
+          max-width: 70%;
+        }
+      }
+    } @else if $pattern == cols-70-30 {
+      &.#{ $pattern } {
+        > *:nth-child(even) {
+          flex: 0 0 30%;
+          max-width: 30%;
+        }
+        > *:nth-child(odd) {
+          flex: 0 0 70%;
+          max-width: 70%;
+        }
+      }
+    } @else if $pattern == cols-60-40 {
+      &.#{ $pattern } {
+        > *:nth-child(odd) {
+          flex: 0 0 60%;
+          max-width: 60%;
+        }
+        > *:nth-child(even) {
+          flex: 0 0 40%;
+          max-width: 40%;
+        }
+      }
+    } @else if $pattern == cols-40-60 {
+      &.#{ $pattern } {
+        > *:nth-child(even) {
+          flex: 0 0 60%;
+          max-width: 60%;
+        }
+        > *:nth-child(odd) {
+          flex: 0 0 40%;
+          max-width: 40%;
+        }
+      }
+    }
+  }
+  // Responsive Patterns
+  @each $breakpoint, $value in $breakpoints {
+    @include media(#{$breakpoint}) {
+      @each $pattern in $patterns {
+        @if $pattern == cols-30-70 {
+          &.#{ $breakpoint }-#{ $pattern } {
+            > *:nth-child(odd) {
+              flex: 0 0 30%;
+              max-width: 30%;
+            }
+            > *:nth-child(even) {
+              flex: 0 0 70%;
+              max-width: 70%;
+            }
+          }
+        } @else if $pattern == cols-70-30 {
+          &.#{ $breakpoint }-#{ $pattern } {
+            > *:nth-child(even) {
+              flex: 0 0 30%;
+              max-width: 30%;
+            }
+            > *:nth-child(odd) {
+              flex: 0 0 70%;
+              max-width: 70%;
+            }
+          }
+        } @else if $pattern == cols-60-40 {
+          &.#{ $breakpoint }-#{ $pattern } {
+            > *:nth-child(odd) {
+              flex: 0 0 60%;
+              max-width: 60%;
+            }
+            > *:nth-child(even) {
+              flex: 0 0 40%;
+              max-width: 40%;
+            }
+          }
+        } @else if $pattern == cols-40-60 {
+          &.#{ $breakpoint }-#{ $pattern } {
+            > *:nth-child(even) {
+              flex: 0 0 60%;
+              max-width: 60%;
+            }
+            > *:nth-child(odd) {
+              flex: 0 0 40%;
+              max-width: 40%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

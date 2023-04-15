@@ -1,0 +1,21 @@
+$breakpoints: (
+  "xs": 26.563rem,
+  "sm": 36rem,
+  "md": 48rem,
+  "lg": 62rem,
+  "xl": 75rem,
+  "xxl": 90rem,
+  "xxxl": 120rem,
+);
+
+@mixin media($key) {
+    $size: map-get($breakpoints, $key);
+
+    @if ($size) {
+        @media (min-width: $size) {
+            @content;
+        }
+    } @else {
+        @error '`#{$key}` does not exist in the $breakpoints';
+    }
+}
