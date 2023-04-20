@@ -26,7 +26,7 @@ $columns: 12;
   }
   // Base
   @for $i from 1 through $columns {
-    &.has-#{ $i }-cols {
+    &.cols-#{ $i } {
       > * {
         flex: 0 0 calc(100% / #{$i});
         max-width: calc(100% / #{$i});
@@ -37,7 +37,7 @@ $columns: 12;
   @each $breakpoint, $value in $breakpoints {
     @for $i from 1 through $columns {
       @include media(#{$breakpoint}) {
-        &.#{ $breakpoint }-has-#{ $i }-cols {
+        &.#{ $breakpoint }-cols-#{ $i } {
           > * {
             flex: 0 0 calc(100% / #{$i});
             max-width: calc(100% / #{$i});
